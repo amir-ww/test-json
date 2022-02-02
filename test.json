@@ -1,0 +1,36 @@
+{
+    "configs": ["bie-kafka-consumer:nonprod-base", "loggly-credentials:dev", "datadog:info"],
+    "containers": [
+      {
+      "image": "us-docker.pkg.dev/wwi-images/bie/bie-kafka-consumer:change-me-get-latest-staging-tag",
+      "name": "bie-kafka-consumer",
+      "imagePullPolicy": "IfNotPresent"
+    }
+    ],
+    "ports": [
+      {
+        "public_port": 80,
+        "target_port": 80,
+        "healthcheck": "/healthcheck"
+      }
+    ],
+    "env": {
+      "KAFKA_CONSUME_MODE": "streaming",
+      "KAFKA_CONSUMER_GROUP_ID": "nonprod-myday-journal-1",
+      "ASYNCIO_QUEUE_MAXSIZE": "10",
+      "BATCH_SIZE": "100000",
+      "BATCH_SEC": "300",
+      "KAFKA_TOPICS": "dataservicesnonprod-wwi-myday-journal-nonprod-myday_journal_nonprod.main.things_to_do",
+      "PRODUCT_SOURCE": "nonprod-myday-journal",
+      "KAFKA_CONSUMER_SESSION_TIMEOUT_MS": "300000",
+      "KAFKA_CONSUMER_MAX_POLL_INTERVAL_MS": "1000000",
+      "BIE_SF_SCHEMA": "RAW_KAFKA"
+
+    },
+    "replicas": 1,
+    "PROPERTY": "weightwatchers.com",
+    "PROJECT": "bie-kafka-consumer",
+    "GLOBAL_TIER_SLA": "app:nonproduction",
+    "GLOBAL_DATA_CLASS": "private",
+    "CONTACT": "amir.skandani@ww.com"
+}
